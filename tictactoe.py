@@ -11,15 +11,9 @@ class TicTacToeGame:
             self.check_board()
             self.switch_player()
         
-        print("Do you want to play another round?")
-        if input("Answer (y/n): ") == "y":
-            self.board = [["", "", ""],["", "", ""],["", "", ""]]
-            self.current_player = "X" # Here, X or O is available. X will start the game.
-            self.gamecomplete = False
-            self.game_loop()
 
     def clear_console(self):
-        empty_space = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+        empty_space = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
         print(empty_space)
 
     def print_board(self):
@@ -28,12 +22,18 @@ class TicTacToeGame:
         print("Current Board: ")
         print("")
 
+        print("-------------")
         for row in self.board:
-            rowstring = "|".join([item if item != "" else " " for item in row])
+            rowstring = "|".join([(" "+ item+" ") if item != "" else "   " for item in row])
             print(f" {rowstring} ")
-            print("---|---|---")
+            print("-------------")
+
+        print("\n")
 
         print("Next Player: {p}".format(p = self.current_player))
+
+        print("\n")
+
 
         
     def get_input(self):
@@ -80,12 +80,23 @@ class TicTacToeGame:
                     col = 2
                 case _:
                     selection_valid = False
+                    
+                    self.print_board()
+                    print("#######################################")
+                    print("ERROR: THE GIVEN SELECTION WAS INVALID!")
+                    print("#######################################")
+                    print("\n")
                     continue
 
             if self.board[row][col] != "":
                 selection_valid = False
-                print("This field is already occupied! Choose another one!")
+                self.print_board()
+                print("######################################")
+                print("ERROR: THIS FIELD IS ALREADY OCCUPIED!")
+                print("######################################")
+                print("\n")
                 continue
+                
             else:
                 self.board[row][col] = self.current_player
                 selection_valid = True
@@ -141,9 +152,17 @@ class TicTacToeGame:
 
             self.clear_console()
             self.print_board()
-            print("")
+            print("\n")
 
+            print("##################################")
+            print("##################################")
+            print("")
             print(f"Player {winner} has won the game!")
+            print("")
+            print("##################################")
+            print("##################################")
+
+            print("\n\n")
             self.gamecomplete = True
         
         if not game_won:
@@ -173,11 +192,18 @@ class TicTacToeGame:
             self.current_player = "X"
     
 
-            
 
+empty_space = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+print(empty_space)
 
-if input("Do you want to start a new game? (y/n): ") == "y":
-    game = TicTacToeGame()
-    game.game_loop()
-else:
-    print("You may close this program.")
+while True:
+
+    
+
+    if input("Do you want to start a new game? (y/n): ") == "y":
+        game = TicTacToeGame()
+        game.game_loop()
+    else:
+        print("Thank you for playing! Goodbye.")
+        break
+
